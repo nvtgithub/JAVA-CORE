@@ -1,0 +1,22 @@
+ - tổng hợp
+
+ -- Biến hằng, kiểu dữ liệu
+ -- Toán tử
+ -- Câu lệnh điều kiện
+       - if, if-else, if-else if
+       - switch case
+-- Vòng lặp
+    for, while, do while
+-- Mảng (1 chiều, đa chiều (2 mảng) ;
+    + cách khai báo mảng:
+        - dataType[] name = {};
+        - dataType[] name = new dataType[n];
+        ===> truy xuất vào phần tử của mảng thông qua chỉ số
+            name[i];
+        ===> Duyệt mảng( vòng lặp(forI, foreach))
+
+===== Đối tượng String =====
+regex() ?
+
+-------------------------------------------------------------------------
+--- Session 04:  String và Regex
