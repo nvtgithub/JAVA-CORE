@@ -1,30 +1,16 @@
-package btl_001.itf;
+package btl_001.model;
 
-import btl_001.entity.IEntity;
-
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Book implements IEntity {
-
-    // id: bắt đầu bằng 'B', độ dài 4 ký tự, duy nhất
+public class Book implements IEntity, Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
-
-    // title: 6-50 ký tự, duy nhất
     private String title;
-
-    // author: not null
     private String author;
-
-    // publisher: not null
     private String publisher;
-
-    // year: từ 1970 và k lớn hơn 2023
     private int year;
-
-    // description : not null
     private String description;
-
-    // Lấy từ danh sách thể loại
     private int categoryId;
 
     public Book() {
@@ -98,11 +84,21 @@ public class Book implements IEntity {
 
     @Override
     public void input() {
-        // validate
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhập mã sách: ");
+        System.out.println("Nhập thông tin sách:");
+
+        // Validate
+        try{
+            System.out.println("Nhập ID sách: ");
+            id = sc.nextLine();
+        }
+        catch (Exception e){
+
+        }
+
+        System.out.println("Nhập id sách: ");
         id = sc.nextLine();
-        System.out.println("Nhập tiêu đề: ");
+        System.out.println("Nhập tiêu đề sách: ");
         title = sc.nextLine();
         System.out.println("Nhập tác giả: ");
         author = sc.nextLine();
@@ -110,16 +106,20 @@ public class Book implements IEntity {
         publisher = sc.nextLine();
         System.out.println("Nhập năm xuất bản: ");
         year = Integer.parseInt(sc.nextLine());
-        System.out.println("Chọn mã thể loại sách: ");
+        System.out.println("Nhập mô tả sách: ");
+        description = sc.nextLine();
+
     }
+
 
     @Override
     public void output() {
-        System.out.println("Mã sách: " + id);
-        System.out.println("Tiêu đề sách: " + title);
+        System.out.println("ID sách: " + id);
+        System.out.println("Tiêu đề: " + title);
         System.out.println("Tác giả: " + author);
         System.out.println("Nhà xuất bản: " + publisher);
         System.out.println("Năm xuất bản: " + year);
+        System.out.println("Mô tả: " + description);
         System.out.println("Mã thể loại: " + categoryId);
     }
 }

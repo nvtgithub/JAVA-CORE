@@ -1,4 +1,4 @@
-package btl_001.entity;
+package btl_001.model;
 
 public interface IEntity {
     void input();

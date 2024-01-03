@@ -16,7 +16,7 @@ public class DemoSerialization {
 
         File file = new File("student.txt");
         if(file.createNewFile()){
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
             for (Student student : list) {
                 outputStream.writeObject(student);
