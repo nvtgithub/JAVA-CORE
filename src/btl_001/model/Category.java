@@ -45,19 +45,25 @@ public class Category implements IEntity, Serializable {
     @Override
     public void input() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhập thông tin thể loại sách:");
 
         // Validate
-        System.out.println("Nhập mã thể loại:");
-        // ID > 0 , nguyên dương, duy nhất
-        try {
-            id = Integer.parseInt(sc.nextLine());
-            if(id <= 0 ){
-                System.out.println("Không hợp lệ. ID phải lớn hơn 0");
+        System.out.print("Nhập mã thể loại:");
+        // Con :  duy nhất
+        do {
+            try {
+                id = Integer.parseInt(sc.nextLine());
+                // ID > 0
+                if (id <= 0) {
+                    System.err.println("ID không hợp lệ. ID phải lớn hơn 0");
+                    System.out.print("Nhập lại ID thể loại: ");
+                } else
+                    break;
+                // Là số nguyên
+            } catch (Exception e) {
+                System.out.println("ID không hợp lệ. ID phải là số nguyên!!!");
+                System.err.println("Nhập lại: ");
             }
-        } catch (Exception e){
-            System.out.println("ID không hợp lệ. ID phải là số nguyên!!!");
-        }
+        } while (true);
 
         System.out.println("Nhập tên thể loại:");
         name = sc.nextLine();

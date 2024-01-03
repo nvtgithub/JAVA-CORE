@@ -50,6 +50,7 @@ public class Menu {
                     categoryService.addCategory();
                     break;
                 case 2:
+                    categoryService.showCategory();
                     break;
                 case 3:
                     break;
