@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CategoryService {
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private final String FOLDER_FILE_CATEGORY = "data";
     private final String FILE_CATEGORY = "data/btl_001.txt";
 
@@ -24,7 +24,6 @@ public class CategoryService {
         }
 
         // Khởi tạo file
-
         File file = new File(FILE_CATEGORY);
 
         if (!file.exists()) {
@@ -42,7 +41,7 @@ public class CategoryService {
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
             outputStream.writeObject(list);
         } catch (IOException e) {
-            System.out.println("Có lỗi khi thêm mới!");
+            System.err.println("Có lỗi khi thêm mới!");
         }
     }
 
@@ -52,8 +51,8 @@ public class CategoryService {
             FileInputStream fileInputStream = new FileInputStream(FILE_CATEGORY);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             categories = (List<Category>) objectInputStream.readObject();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (EOFException e) {
+            return categories;
         } catch (IOException e) {
             System.err.println("Lỗi khi đọc file!");
         } catch (ClassNotFoundException e) {
@@ -63,25 +62,30 @@ public class CategoryService {
     }
 
     public void addCategory() {
-        System.out.println("Nhập thông tin thể loại sách:");
+        System.out.println("----- THÊM MỚI THỂ LOẠI SÁCH: -----");
         List<Category> categories = getAllFromFile(); // Lấy dl từ file
         do {
             // Khoi tạo doi tuong category
             Category category = new Category();
             category.input();
             categories.add(category);
+            saveToFile(categories);
             System.out.println("Nhập tiếp 1.Có hoặc 0.Không");
             int choice = Integer.parseInt(sc.nextLine());
             if (choice == 0)
                 break;
         } while (true);
-        saveToFile(categories);
     }
 
     public void showCategory(){
         // tao bien để chứa dl từ file
         List<Category> categories = getAllFromFile();
-
+        System.out.printf("\t\t\t\t\t|-------------------------------------------------|%n");
+        System.out.printf("\t\t\t\t\t|------------- ❤️Danh sách Danh mục❤️-------------|%n");
+        System.out.printf("\t\t\t\t\t*-------------------------------------------------*%n");
+        System.out.printf("\t\t\t\t\t| %-6s | %-20s | %-15s |%n","ID","Tên thể loại","Trạng Thái");
+        System.out.printf("\t\t\t\t\t|-------------------------------------------------|%n");
+        System.out.printf("\t\t\t\t\t*-------------------------------------------------*%n");
         for (Category category : categories) {
             category.output();
         }

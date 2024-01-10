@@ -87,7 +87,7 @@ public class Book implements IEntity, Serializable {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập thông tin sách:");
 
-        // Validate
+        // Id
         try{
             System.out.println("Nhập ID sách: ");
             id = sc.nextLine();
@@ -111,9 +111,9 @@ public class Book implements IEntity, Serializable {
 
     }
 
-
     @Override
     public void output() {
+
         System.out.println("ID sách: " + id);
         System.out.println("Tiêu đề: " + title);
         System.out.println("Tác giả: " + author);

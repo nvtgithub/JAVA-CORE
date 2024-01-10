@@ -10,9 +10,9 @@ import java.util.List;
 public class DemoSerialization {
     public static void main(String[] args) throws IOException {
         List<Student> list = new ArrayList<>();
-        list.add(new Student(1,"Tiến",18,true));
-        list.add(new Student(2,"Ánh",18,false));
-        list.add(new Student(3,"Huy",18,true));
+//        list.add(new Student(1,"Tiến",18,true));
+//        list.add(new Student(2,"Ánh",18,false));
+//        list.add(new Student(3,"Huy",18,true));
 
         File file = new File("student.txt");
         if(file.createNewFile()){
