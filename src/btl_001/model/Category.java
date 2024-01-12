@@ -1,10 +1,10 @@
 package btl_001.model;
 
 import btl_001.service.CategoryService;
+import btl_001.validate.Color;
 
 import java.io.Serializable;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,10 +13,6 @@ public class Category implements IEntity, Serializable {
     private static final long serialVersionUID = 1L;
 
     // ANSI escape code constants for text colors
-    private static final String RESET = "\u001B[0m";
-    private static final String RED = "\u001B[31m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String YELLOW = "\u001B[33m";
     private int id;
     private String name;
     private boolean status;
@@ -63,7 +59,7 @@ public class Category implements IEntity, Serializable {
         do {
             // ID là int
             try {
-                id = Integer.parseInt(sc.next());
+                id = Integer.parseInt(sc.nextLine());
                 // ID > 0
                 if (id > 0) {
                     // ID duy nhất
@@ -72,20 +68,20 @@ public class Category implements IEntity, Serializable {
                     for (Category item : categoryService.getAllFromFile()) {
                         if (id == item.getId()) {
                             flagIdCategory = false;
-                            System.out.println(RED + "ID đã tồn tại!" + RESET);
+                            System.out.println(Color.RED + "ID đã tồn tại!" + Color.RESET);
                             System.out.print("Nhập lại : ");
-                        } else
                             break;
+                        }
                     }
                     if (flagIdCategory)
                         break;
                 } else {
-                    System.out.println(RED + "ID phải lớn hơn 0!");
+                    System.out.println(Color.RED + "ID phải lớn hơn 0!" + Color.RESET);
                     System.out.print("Nhập lại id: ");
                 }
             } catch (Exception e) {
-                System.out.println(RED + "ID không hợp lệ. ID phải là số nguyên!!!" + RESET);
-                System.out.println("Nhập lại: ");
+                System.out.println(Color.RED + "ID không hợp lệ. ID phải là số nguyên!!!" + Color.RESET);
+                System.out.print("Nhập lại: ");
             }
         } while (true);
 
@@ -93,12 +89,13 @@ public class Category implements IEntity, Serializable {
         System.out.print("Nhập tên thể loại: ");
         do {
             // ký tự a-z,A-Z,6-30 ky tu
-            name = sc.next();
-            Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9\\d]{6,30}$");
+            name = sc.nextLine();
+            String regex = "^(?=\\s*\\S).{6,30}$";
+            Pattern pattern1 = Pattern.compile(regex);
             Matcher check = pattern1.matcher(name);
 
             if (!check.matches()) {
-                System.out.println(RED + "Tên thể loại phải từ 6 - 30 ký tự!" + RESET);
+                System.out.println(Color.RED + "Tên thể loại phải từ 6 - 30 ký tự!" + Color.RESET);
                 System.out.print("Nhập lại: ");
             } else {
                 // check trung name
@@ -107,7 +104,7 @@ public class Category implements IEntity, Serializable {
                 for (Category item : categoryService.getAllFromFile()) {
                     if (item.getName().equalsIgnoreCase(name)) {
                         flagNameCategory = false;
-                        System.out.println(RED + "Tên thể loại đã tồn tại! " + RESET);
+                        System.out.println(Color.RED + "Tên thể loại đã tồn tại! " + Color.RESET);
                         System.out.print("Nhập lại: ");
                         break;
                     }
@@ -115,6 +112,7 @@ public class Category implements IEntity, Serializable {
                 if (flagNameCategory)
                     break;
             }
+
         } while (true);
 
         // status
@@ -123,19 +121,32 @@ public class Category implements IEntity, Serializable {
             try {
                 Scanner sc1 = new Scanner(System.in);
                 status = Boolean.parseBoolean(String.valueOf(sc1.nextBoolean()));
-                if(status){
+                if (status) {
                     break;
                 } else
                     break;
             } catch (InputMismatchException e) {
-                System.out.println(RED + "Trạng thái không hợp lệ!" + RESET);
+                System.out.println(Color.RED + "Trạng thái không hợp lệ!" + Color.RESET);
                 System.out.print("Nhập lại (true hoặc false): ");
             }
         } while (true);
+        System.out.println("");
     }
 
     @Override
     public void output() {
-        System.out.printf("\t\t\t\t\t| %-6d | %-20s | %-15s |%n",id,name,status ? "Hoạt động" : "Không hoạt động");
+        System.out.printf("\t\t\t\t\t| %-6d | %-20s | %-15s |%n", id, name, status ? "Hoạt động" : "Không hoạt động");
+    }
+
+    public void output2() {
+        System.out.printf("\t\t\t| %-6d | %-18s |%n", id, name);
+    }
+
+    public void output3() {
+        System.out.printf("\t\t\t\t\t |%-20s | %-15s |%n", name, status ? "Hoạt động" : "Không hoạt động");
+    }
+
+    public void output4() {
+        System.out.println("Thể loại: " + name);
     }
 }
